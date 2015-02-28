@@ -14,18 +14,16 @@ import urllib
 class yzm():
     def _init_(self):
         pass
-    def get(self,times):
-        self.times = times
-        print '需要抓取%d个验证码'%times
-        for i in range(times):
-            t = i+1
-            web = urllib.urlopen('http://211.70.49.127/CheckCode.aspx')
-            pic = web.read()
-            fil = file('checkcode%d.png'%t,'wb')
-            fil.write(pic)
-            fil.flush()
-            fil.close
-            print '第%d个验证码获取成功'%t
+    def get(self):
+        web = urllib.urlopen('http://211.70.49.127/CheckCode.aspx')
+        pic = web.read()
+        name = 'checkcode.png'
+        fil = file(name,'wb')
+        fil.write(pic)
+        fil.flush()
+        fil.close
+        print '验证码获取成功'
+        return name
     def p_to_a(self,name):
         im = Image.open(name)
         new = im.convert('L')
