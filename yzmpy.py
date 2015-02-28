@@ -10,6 +10,7 @@ from scipy import misc
 from numpy import *
 import numpy as np
 import urllib
+import os
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 class yzm():
     def _init_(self):
@@ -35,14 +36,30 @@ class yzm():
                     lena[i][j] = 1
                 else:
                     lena[i][j]=0
-        c = arange(96).reshape(12,8)
         list1 = []
         for i in range(5):
+            c = arange(96).reshape(12,8)
             for j in range(12):
                 for k in range(8):
                     c[j][k] = str(lena[j+5][k+5+9*i])
             list1.append(c)
         return list1
-                    
+    def tran(self,name,list1):
+        im = Image.open(name)
+        im.show()
+        answer = raw_input(u"请输入看见的数字")
+        if len(answer) == 5:
+            for i in range(len(answer)):
+                o = file('%s.txt'%answer[i],'w+')
+                #print list1[i]
+                for j in range(12):
+                    if j>0:
+                        o.write('\n')
+                    for k in range(8):
+                        #print list1[i][j][k]
+                        o.write(str(list1[i][j][k]))
+                o.close()                        
+        else:
+            print u'训练失败'
             
         
