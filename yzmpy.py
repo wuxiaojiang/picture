@@ -61,5 +61,12 @@ class yzm():
                 o.close()                        
         else:
             print u'训练失败'
-            
+    def get_tran(self,num):
+        path = os.getcwd()
+        d = os.listdir('%s\\train'%path)
+        name = str('%d.txt'%num)
+        print d
+        for i in d:
+            if i == name:
+                print u'存在训练文件'
         
