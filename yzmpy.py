@@ -24,22 +24,14 @@ def l_dir():
         numlist.append(int(i.split('_')[0]))
     return numlist,namelist
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-def exist(num):
-    name = []
+def g_tran(name):
     numlist,namelist = l_dir()
-    if num in numlist:
-        return 1
-    else:
-        return 0
-#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-def g_tran(num,times):
-    numlist,nameslist = l_dir()
-    print numlist
-    print nameslist
-    if exist(num) == 1:
+    #print numlist
+    #print nameslist
+    if name in namelist:
         print u'存在训练文件'
         path = os.getcwd()
-        o = open('%s\\train\\%d_%d.txt'%(path,num,times))
+        o = open('%s\\train\\%s.txt'%(path,name))
         c = o.read()
         arr = arange(96).reshape(12,8)
         for i in range(12):
@@ -93,7 +85,7 @@ class yzm():
             for i in range(len(answer)):
                 if int(i) in numlist:
                     for j in namelist:
-                        if int(j.split('_')[0]) == int(i):
+                        if int(j.split('_')[0]) == int(answer[i]):
                             list2.append(j)
                         else:
                             o = file('%s\\train\\%s_1.txt'%(path,answer[i]),'w+')
@@ -101,15 +93,14 @@ class yzm():
                                 for k in range(8):
                                     o.write(str(list1[i][j][k]))
                             o.close()
-                        print list2
-                        list3 = list(set(list2))
-            if list3:
-                for j in list3:
-                    o=open('%s\\train\\%s.txt'%(path,j))
-                    text = o.read()
-                    print list1[i]
-                    print text
-                    if list1[i] == text:
+            print list2
+            if list2:
+                for j in range(len(list2)):
+                    print list2[j]
+                    arr = g_tran(list2[j])
+                    print list1[j]
+                    print arr
+                    if (mat(list1[i]) == arr).all():
                         pass
                     else:
                         print 'new'
