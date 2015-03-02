@@ -87,18 +87,36 @@ class yzm():
         im.show()
         path = os.getcwd()
         answer = raw_input(u"请输入看见的数字")
-        if len(answer) == 5:               
+        numlist,namelist = l_dir()
+        if len(answer) == 5:
+            list2=[]
             for i in range(len(answer)):
-                o = file('%s\\train\\%s.txt'%(path,answer[i]),'w+')
-                #print list1[i]
-                for j in range(12):
-                    for k in range(8):
-                        #print list1[i][j][k]
-                        o.write(str(list1[i][j][k]))
-                o.close()                        
+                if int(i) in numlist:
+                    for j in namelist:
+                        if int(j.split('_')[0]) == int(i):
+                            list2.append(j)
+                        else:
+                            o = file('%s\\train\\%s_1.txt'%(path,answer[i]),'w+')
+                            for j in range(12):
+                                for k in range(8):
+                                    o.write(str(list1[i][j][k]))
+                            o.close()
+                        print list2
+                        list3 = list(set(list2))
+            if list3:
+                for j in list3:
+                    o=open('%s\\train\\%s.txt'%(path,j))
+                    text = o.read()
+                    print list1[i]
+                    print text
+                    if list1[i] == text:
+                        pass
+                    else:
+                        print 'new'
         else:
             print u'训练失败'
     #**********************************************************************
     def get_tran(self,num,times):
         arr = g_tran(num,times)
         print arr
+    #**********************************************************************
